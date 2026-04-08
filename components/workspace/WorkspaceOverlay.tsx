@@ -261,7 +261,6 @@ export function WorkspaceOverlay() {
               <LibraryPanel 
                 agentType={(activeAgent ?? "prospecting") as "prospecting" | "engagement"} 
                 onSelect={(folderId, fileId) => {
-                  console.log("[WorkspaceOverlay] Library item selected:", { folderId, fileId });
                   setActiveCanvas({ folderId, fileId });
                 }}
               />
