@@ -1,0 +1,191 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* ── Fonts (Geist — Neuvéra brand font) ────────────────── */
+  --font-sans:  var(--font-geist-sans), system-ui, sans-serif;
+  --font-serif: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono:  var(--font-geist-mono), ui-monospace, monospace;
+
+  /* ── shadcn semantic tokens → Neuvéra palette ──────────── */
+  --color-background:         var(--background);
+  --color-foreground:         var(--foreground);
+  --color-card:               var(--card);
+  --color-card-foreground:    var(--card-foreground);
+  --color-popover:            var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary:            var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary:          var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted:              var(--muted);
+  --color-muted-foreground:   var(--muted-foreground);
+  --color-accent:             var(--accent);
+  --color-accent-foreground:  var(--accent-foreground);
+  --color-destructive:        var(--destructive);
+  --color-border:             var(--border);
+  --color-input:              var(--input);
+  --color-ring:               var(--ring);
+
+  /* ── Radius scale ───────────────────────────────────────── */
+  --radius-sm:  calc(var(--radius) * 0.5);
+  --radius-md:  calc(var(--radius) * 0.75);
+  --radius-lg:  var(--radius);
+  --radius-xl:  calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 2.5);
+
+  /* ── Neuvéra design tokens ──────────────────────────────── */
+  /* Surfaces — warm off-white from neuveralife.com */
+  --color-bg:         #f2f2ef;
+  --color-surface:    #ffffff;
+  --color-s2:         #ebebea;
+  --color-s3:         #e3e3e0;
+  --color-b:          #e8e8e5;
+  --color-b-l:        #f0f0ee;
+
+  /* Ink — black type scale */
+  --color-ink:        #0a0a0a;
+  --color-ink2:       #303030;
+  --color-ink3:       #777777;
+  --color-ink4:       #b0b0b0;
+
+  /* Teal — Neuvéra brand accent */
+  --color-teal:       #108474;
+  --color-teal-l:     #27A1B5;
+  --color-teal-bg:    #e8f5f3;
+
+  /* Gold aliases → teal (for component back-compat) */
+  --color-gold:       #108474;
+  --color-gold-l:     #27A1B5;
+  --color-gold-d:     rgba(39, 161, 181, 0.10);
+  --color-amber-bg:   #fdf3e3;
+
+  /* Semantic status colors */
+  --color-green:      #3D8B6E;
+  --color-green-bg:   #e8f5ef;
+  --color-green-b:    #b8dfd0;
+  --color-red:        #8B0000;
+  --color-red-bg:     #fceaea;
+  --color-amber:      #c07a00;
+  --color-blue:       #3A6BAD;
+  --color-blue-bg:    #ebf1fb;
+  --color-purple:     #6B47B5;
+  --color-purple-bg:  #f0ebfa;
+  --color-border-l:   #ede8df;
+
+  /* ── Layout constants ───────────────────────────────────── */
+  --sidebar-w:        216px;
+  --topbar-h:         52px;
+}
+
+/* ── Light theme (default) ──────────────────────────────── */
+:root {
+  /* Neuvéra palette mapped to shadcn semantic tokens */
+  --background:           #f2f2ef;
+  --foreground:           #0a0a0a;
+  --card:                 #ffffff;
+  --card-foreground:      #0a0a0a;
+  --popover:              #ffffff;
+  --popover-foreground:   #0a0a0a;
+  --primary:              #000000;
+  --primary-foreground:   #ffffff;
+  --secondary:            #ebebea;
+  --secondary-foreground: #0a0a0a;
+  --muted:                #ebebea;
+  --muted-foreground:     #777777;
+  --accent:               #27A1B5;
+  --accent-foreground:    #ffffff;
+  --destructive:          #8B0000;
+  --border:               rgba(0, 0, 0, 0.08);
+  --input:                #dfdfdf;
+  --ring:                 #27A1B5;
+  --radius:               8px;
+
+  /* Chart palette */
+  --chart-1: #108474;
+  --chart-2: #27A1B5;
+  --chart-3: #3A6BAD;
+  --chart-4: #3D8B6E;
+  --chart-5: #c07a00;
+
+  /* Sidebar tokens */
+  --sidebar:                    #ebebea;
+  --sidebar-foreground:         #0a0a0a;
+  --sidebar-primary:            #000000;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent:             #e3e3e0;
+  --sidebar-accent-foreground:  #0a0a0a;
+  --sidebar-border:             rgba(0, 0, 0, 0.08);
+  --sidebar-ring:               #27A1B5;
+
+  /* Teal dim for subtle highlights */
+  --teal-dim: rgba(39, 161, 181, 0.12);
+
+  /* Gold aliases → teal (component back-compat) */
+  --gold-dim:     rgba(39, 161, 181, 0.12);
+}
+
+/* ── Base layer ─────────────────────────────────────────── */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "liga" 1, "kern" 1;
+  }
+}
+
+/* ── Keyframe animations ────────────────────────────────── */
+@keyframes pulse-ring {
+  0%   { transform: scale(0.8); opacity: 1; }
+  80%  { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+@keyframes msg-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes workspace-in {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes typing-bounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30%           { transform: translateY(-4px); }
+}
+
+/* ── Animation utility classes ──────────────────────────── */
+.animate-pulse-ring {
+  animation: pulse-ring 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+.animate-msg-in {
+  animation: msg-in 0.2s ease-out both;
+}
+
+.animate-workspace-in {
+  animation: workspace-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-typing {
+  animation: typing-bounce 1.2s ease-in-out infinite;
+}
